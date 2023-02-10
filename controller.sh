@@ -22,7 +22,7 @@ log_file="$log_dir/controller_${prog_name/'.'/'_'}.log"
 if [ "$2" = "" ]; then # [ NOT USE FORCE REBOOT ]
 
   if [ -n "$pid" ]; then # if PID exist
-    echo -e "\n($g $pid $n) - $w$prog_name$n ... $g[ Status : running ] \n"
+    echo -e "\n($g $pid $n) - $w$prog_name$n ... $g[ Status : running ] $n\n"
     echo -e "$pid $prog_name" >"$log_file"
     exit 0 # Do nothing
 
@@ -45,5 +45,5 @@ elif [ "$2" = "-r" ] || [ "$2" = "--reboot" ]; then # [ FORCE REBOOT !!! ]
   [[ -n "$pid" ]] && echo -e "$pid $prog_name" >"$log_file" && echo -e " $b($pid) - $g[ OK ]$n\n"
 
 else
-  echo -e $r"\n [ Error ] - Bad script usage.$n\n$w   Usage : $0 [ -r|--reboot ] \n"
+  echo -e $r"\n [ Error ] - Bad script usage.$n\n$w   Usage : $0 \e[4mprogram$n [ -r|--reboot ] $n\n"
 fi
