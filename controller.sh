@@ -3,14 +3,13 @@
 ##Colors
 rd='\e[1;91m' ; g='\e[1;92m' ; y='\e[1;93m' ; b='\e[1;96m' ; w='\e[1;97m' ; n='\e[0m'
 
-#if [ ! -e "$1" ]; then echo -e "\n$rd [ error ] : file doesn't exist !!\n" ; exit 1; fi 
+if [ ! -e "$1" ]; then echo -e "\n$rd [ error ] : file doesn't exist !!\n" ; exit 1; fi 
 
 full_path="$(realpath $1)"
 path="${full_path%/*}"
 prog_name="$(basename $full_path)"
 log="$path"/'process.log'
 script="$path"/"$prog_name"
-echo $prog_name && exit
 
 # Si $log n'existe pas et que le processus existe on le tue
 if [ ! -e "$log" ]; then
