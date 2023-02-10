@@ -1,12 +1,7 @@
 #!/bin/bash
 
 ##Colors
-r='\e[1;91m'
-g='\e[1;92m'
-y='\e[1;93m'
-b='\e[1;96m'
-w='\e[1;97m'
-n='\e[0m'
+r='\e[1;91m' && g='\e[1;92m' && y='\e[1;93m' && b='\e[1;96m' && w='\e[1;97m' && n='\e[0m'
 
 # Exit if it isn't a command or file
 if [ -z "$(command -v "$1")" ]; then
@@ -19,19 +14,19 @@ fi
 [[ -z "$script" ]] && script="$1"
 prog_name="${script##/*/}"
 pid=$(pidof -sx "$prog_name")
+
 log_dir="$HOME/.controller"
 [[ ! -d "$log_dir" ]] && mkdir -p "$log_dir"
 log_file="$log_dir/controller_${prog_name/'.'/'_'}.log"
 
 if [ "$2" = "" ]; then # [ NOT USE FORCE REBOOT ]
 
-  # Check if PID exist
-  if [ -n "$pid" ]; then
+  if [ -n "$pid" ]; then # if PID exist
     echo -e "\n($g $pid $n) - $w$prog_name$n ... $g[ Status : running ] \n"
     echo -e "$pid $prog_name" >"$log_file"
     exit 0 # Do nothing
 
-  else
+  else # if PID not exist
     echo -ne "\n($r NO PID $n) - $w$prog_name$n ... $r[ Status : stopped ] \n\n$n==> starting... " && sleep 2
     "$script" 1>/dev/null &
 
